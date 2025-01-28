@@ -46,6 +46,13 @@ describe("GET /api", () => {
     });
   });
   describe("GET /api/articles/:article_id", () => {
-    test("200: Responds with ", () => {});
+    test("404: Responds with an error if the article_id does not exist", () => {
+      return request(app)
+        .get("/api/articles/0")
+        .expect(404)
+        .then(({ body }) => {
+          expect(body).toEqual({ error: "Not found" });
+        });
+    });
   });
 });
