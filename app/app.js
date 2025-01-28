@@ -3,8 +3,6 @@ const { getApi, getTopics } = require("./controllers/get.api");
 const app = express();
 const port = 9090;
 
-app.use(express.json());
-
 //Endpoints start here
 
 app.get("/api", getApi);
