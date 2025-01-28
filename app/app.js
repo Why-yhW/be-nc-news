@@ -20,7 +20,23 @@ app.all("*", (req, res) => {
 
 app.use((err, req, res, next) => {
   if (err.message === "Article not found") {
-    res.status(404).send({ error: "Not found" });
+    res.status(404).send({ error: "Not Found" });
+  } else {
+    next(err);
+  }
+});
+
+app.use((err, req, res, next) => {
+  if (err.code === "42601") {
+    console.log("query error", err.error);
+  } else {
+    next(err);
+  }
+});
+
+app.use((err, req, res, next) => {
+  if (err.code === "22P02") {
+    res.status(400).send({ error: "Bad Request" });
   } else {
     next(err);
   }

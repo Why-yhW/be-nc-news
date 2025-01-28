@@ -13,10 +13,9 @@ exports.fetchTopics = () => {
 
 exports.fetchArticleById = (params) => {
   return db
-    .query(
-      `SELECT * FROM articles JOIN comments ON articles.article_id = comments.article_id WHERE articles.article_id = $1`,
-      [params.article_id]
-    )
+    .query(`SELECT * FROM articles WHERE articles.article_id = $1`, [
+      params.article_id,
+    ])
     .then(({ rows }) => {
       if (rows.length === 0) {
         return Promise.reject({ message: "Article not found" });
