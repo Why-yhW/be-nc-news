@@ -27,44 +27,69 @@ describe("GET /api", () => {
         expect(error).toEqual("Endpoint not found!");
       });
   });
-  describe.only("GET /api/topics", () => {
-    test("200: Responds with an array", () => {
+  describe("GET /api/topics", () => {
+    test("200: Responds with an object called topic which cantains an array of objects.", () => {
       return request(app)
         .get("/api/topics")
         .expect(200)
         .then(({ body: { topics } }) => {
           expect(Array.isArray(topics)).toEqual(true);
-        });
-    });
-    test("200: Responds with an array containing an object", () => {
-      return request(app)
-        .get("/api/topics")
-        .expect(200)
-        .then(({ body: { topics } }) => {
-          expect(typeof topics[0]).toEqual("object");
-        });
-    });
-    test("200: Responds with an object called topic which cantains an array of objects.", () => {
-      return request(app)
-        .get("/api/topics")
-        .expect(200)
-        .then(({ body }) => {
-          expect(body).toEqual({
-            topics: [
-              {
-                description: "The man, the Mitch, the legend",
-                slug: "mitch",
-              },
-              {
-                description: "Not dogs",
-                slug: "cats",
-              },
-              {
-                description: "what books are made of",
-                slug: "paper",
-              },
-            ],
+          expect(topics.length).toEqual(3);
+          topics.forEach((topic) => {
+            let keys = Object.keys(topic);
+            expect(keys.includes("slug")).toEqual(true);
+            expect(keys.includes("description")).toEqual(true);
+            expect(typeof topic.slug).toEqual("string");
+            expect(typeof topic.description).toEqual("string");
           });
+        });
+    });
+  });
+  describe("GET /api/articles/:article_id", () => {
+    test("404: Responds with an error if the article_id does not exist", () => {
+      return request(app)
+        .get("/api/articles/0")
+        .expect(404)
+        .then(({ body }) => {
+          expect(body).toEqual({ error: "Not Found" });
+        });
+    });
+    test("400: Responds with an error if the article_id is not a number", () => {
+      return request(app)
+        .get("/api/articles/tomato")
+        .expect(400)
+        .then(({ body }) => {
+          expect(body).toEqual({ error: "Bad Request" });
+        });
+    });
+    test("200: Responds with an array containg the appropriate article object", () => {
+      return request(app)
+        .get("/api/articles/2")
+        .expect(200)
+        .then(({ body: { article } }) => {
+          expect(Array.isArray(article)).toEqual(true);
+          expect(article.length).toEqual(1);
+          let keys = Object.keys(article[0]);
+          expect(keys.sort()).toEqual(
+            [
+              "author",
+              "title",
+              "article_id",
+              "body",
+              "topic",
+              "created_at",
+              "votes",
+              "article_img_url",
+            ].sort()
+          );
+          expect(typeof article[0].author).toEqual("string");
+          expect(typeof article[0].title).toEqual("string");
+          expect(typeof article[0].article_id).toEqual("number");
+          expect(typeof article[0].body).toEqual("string");
+          expect(typeof article[0].topic).toEqual("string");
+          expect(typeof article[0].created_at).toEqual("string");
+          expect(typeof article[0].votes).toEqual("number");
+          expect(typeof article[0].article_img_url).toEqual("string");
         });
     });
   });

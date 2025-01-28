@@ -1,9 +1,7 @@
 const express = require("express");
-const { getApi, getTopics } = require("./controllers/get.api");
+const { getApi, getTopics, getArticleById } = require("./controllers/get.api");
 const app = express();
 const port = 9090;
-
-app.use(express.json());
 
 //Endpoints start here
 
@@ -11,11 +9,41 @@ app.get("/api", getApi);
 
 app.get("/api/topics", getTopics);
 
+app.get("/api/articles/:article_id", getArticleById);
+
 //Endpoints end here
 //Error handling starts here
 
 app.all("*", (req, res) => {
   res.status(404).send({ error: "Endpoint not found!" });
+});
+
+app.use((err, req, res, next) => {
+  if (err.message === "Article not found") {
+    res.status(404).send({ error: "Not Found" });
+  } else {
+    next(err);
+  }
+});
+
+app.use((err, req, res, next) => {
+  if (err.code === "42601") {
+    console.log("query error", err.error);
+  } else {
+    next(err);
+  }
+});
+
+app.use((err, req, res, next) => {
+  if (err.code === "22P02") {
+    res.status(400).send({ error: "Bad Request" });
+  } else {
+    next(err);
+  }
+});
+
+app.use((err, req, res, next) => {
+  console.log(err);
 });
 
 //Error handling ends here
