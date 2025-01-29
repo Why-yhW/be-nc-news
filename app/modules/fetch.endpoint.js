@@ -20,7 +20,7 @@ exports.fetchArticleById = (params) => {
       if (rows.length === 0) {
         return Promise.reject({ message: "Article not found" });
       } else {
-        return rows;
+        return rows[0];
       }
     });
 };
