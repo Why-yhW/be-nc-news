@@ -33,12 +33,8 @@ describe("GET /api", () => {
         .get("/api/topics")
         .expect(200)
         .then(({ body: { topics } }) => {
-          expect(Array.isArray(topics)).toEqual(true);
           expect(topics.length).toEqual(3);
           topics.forEach((topic) => {
-            let keys = Object.keys(topic);
-            expect(keys.includes("slug")).toEqual(true);
-            expect(keys.includes("description")).toEqual(true);
             expect(typeof topic.slug).toEqual("string");
             expect(typeof topic.description).toEqual("string");
           });
@@ -75,6 +71,30 @@ describe("GET /api", () => {
           expect(typeof article.created_at).toEqual("string");
           expect(typeof article.votes).toEqual("number");
           expect(typeof article.article_img_url).toEqual("string");
+        });
+    });
+  });
+  describe("GET /api/articles", () => {
+    test("200: Responds with an array of article objects", () => {
+      return request(app)
+        .get("/api/articles")
+        .expect(200)
+        .then(({ body: { articles } }) => {
+          expect(articles.length).toEqual(13);
+          expect(articles).toBeSortedBy("created_at", {
+            descending: true,
+          });
+          articles.forEach((article) => {
+            expect(Object.keys(article).includes("body")).toEqual(false);
+            expect(typeof article.author).toEqual("string");
+            expect(typeof article.title).toEqual("string");
+            expect(typeof article.article_id).toEqual("number");
+            expect(typeof article.topic).toEqual("string");
+            expect(typeof article.created_at).toEqual("string");
+            expect(typeof article.votes).toEqual("number");
+            expect(typeof article.article_img_url).toEqual("string");
+            expect(typeof article.comment_count).toEqual("string");
+          });
         });
     });
   });

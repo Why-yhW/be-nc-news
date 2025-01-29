@@ -1,5 +1,10 @@
 const express = require("express");
-const { getApi, getTopics, getArticleById } = require("./controllers/get.api");
+const {
+  getApi,
+  getTopics,
+  getArticleById,
+  getArticles,
+} = require("./controllers/get.api");
 const app = express();
 const port = 9090;
 
@@ -8,6 +13,8 @@ const port = 9090;
 app.get("/api", getApi);
 
 app.get("/api/topics", getTopics);
+
+app.get("/api/articles", getArticles);
 
 app.get("/api/articles/:article_id", getArticleById);
 
@@ -21,14 +28,6 @@ app.all("*", (req, res) => {
 app.use((err, req, res, next) => {
   if (err.message === "Article not found") {
     res.status(404).send({ error: "Not Found" });
-  } else {
-    next(err);
-  }
-});
-
-app.use((err, req, res, next) => {
-  if (err.code === "42601") {
-    console.log("query error", err.error);
   } else {
     next(err);
   }
