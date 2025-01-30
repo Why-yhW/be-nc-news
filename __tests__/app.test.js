@@ -210,4 +210,68 @@ describe("GET /api", () => {
         });
     });
   });
+  describe("PATCH /api/articles/:article_id", () => {
+    test("201: Responds with the updated article having a positive vote", () => {
+      return request(app)
+        .patch("/api/articles/1")
+        .send({ inc_votes: 10 })
+        .expect(201)
+        .then(({ body: { article } }) => {
+          expect(typeof article.author).toEqual("string");
+          expect(typeof article.title).toEqual("string");
+          expect(article.article_id).toEqual(1);
+          expect(typeof article.topic).toEqual("string");
+          expect(typeof article.created_at).toEqual("string");
+          expect(article.votes).toEqual(110);
+          expect(typeof article.article_img_url).toEqual("string");
+          expect(typeof article.body).toEqual("string");
+        });
+    });
+    test("201: Responds with the updated article having a negative vote", () => {
+      return request(app)
+        .patch("/api/articles/1")
+        .send({ inc_votes: -110 })
+        .expect(201)
+        .then(({ body: { article } }) => {
+          expect(article.article_id).toEqual(1);
+          expect(article.votes).toEqual(-10);
+        });
+    });
+    test("400: Responds with an error message when character are given istead of numbers", () => {
+      return request(app)
+        .patch("/api/articles/1")
+        .send({ inc_votes: "apple" })
+        .expect(400)
+        .then(({ body }) => {
+          expect(body).toEqual({ error: "Bad Request" });
+        });
+    });
+    test("400: Responds whith error when a key in the given body is wrong or missing", () => {
+      return request(app)
+        .patch("/api/articles/1")
+        .send({ inc_vtes: 10 })
+        .expect(400)
+        .then(({ body }) => {
+          expect(body).toEqual({ error: "Missing required key in given body" });
+        });
+    });
+    test("404: Responds with an error if the article_id does not exist", () => {
+      return request(app)
+        .patch("/api/articles/100")
+        .send({ inc_vtes: 10 })
+        .expect(404)
+        .then(({ body }) => {
+          expect(body).toEqual({ error: "Not Found" });
+        });
+    });
+    test("400: Responds with an error if the article_id is not a number", () => {
+      return request(app)
+        .patch("/api/articles/tomato")
+        .send({ inc_vtes: 10 })
+        .expect(400)
+        .then(({ body }) => {
+          expect(body).toEqual({ error: "Bad Request" });
+        });
+    });
+  });
 });
