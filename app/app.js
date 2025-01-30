@@ -1,11 +1,13 @@
 const express = require("express");
+const { getApi } = require("./controllers/get.api");
+const { getTopics } = require("./controllers/topics.controllers");
 const {
-  getApi,
-  getTopics,
-  getArticleById,
   getArticles,
+  getArticleById,
   getCommentsByArticleId,
-} = require("./controllers/get.api");
+  postCommentByArticleId,
+} = require("./controllers/articles.controllers");
+
 const app = express();
 const port = 9090;
 
@@ -20,6 +22,8 @@ app.get("/api/articles", getArticles);
 app.get("/api/articles/:article_id", getArticleById);
 
 app.get("/api/articles/:article_id/comments", getCommentsByArticleId);
+
+//app.post("/api/articles/:article_id/comments", postCommentByArticleId);
 
 //Endpoints end here
 //Error handling starts here

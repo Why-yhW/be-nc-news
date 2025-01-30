@@ -93,13 +93,13 @@ describe("GET /api", () => {
             expect(typeof article.created_at).toEqual("string");
             expect(typeof article.votes).toEqual("number");
             expect(typeof article.article_img_url).toEqual("string");
-            expect(typeof article.comment_count).toEqual("string");
+            expect(typeof article.comment_count).toEqual("number");
           });
         });
     });
   });
   describe("GET /api/articles/:article_id/comments", () => {
-    test("200: responds with an array of comments for the given article_id", () => {
+    test("200: Responds with an array of comments for the given article_id", () => {
       return request(app)
         .get("/api/articles/1/comments")
         .expect(200)
@@ -116,7 +116,15 @@ describe("GET /api", () => {
           });
         });
     });
-    test("200: responds with an array of comments for the given article_id", () => {
+    test("200: Responds with an empty array if there are no comments for the given article_id", () => {
+      return request(app)
+        .get("/api/articles/2/comments")
+        .expect(200)
+        .then(({ body: { comments } }) => {
+          expect(comments.length).toEqual(0);
+        });
+    });
+    test("404: Responds with an error if the article_id does not exist", () => {
       return request(app)
         .get("/api/articles/50/comments")
         .expect(404)
@@ -124,5 +132,34 @@ describe("GET /api", () => {
           expect(body).toEqual({ error: "Not Found" });
         });
     });
+    test("400: Responds with an error if the article_id is not a number", () => {
+      return request(app)
+        .get("/api/articles/tomato/comments")
+        .expect(400)
+        .then(({ body }) => {
+          expect(body).toEqual({ error: "Bad Request" });
+        });
+    });
   });
+  // describe("POST /api/articles/:article_id/comments", () => {
+  //   test("201: Responds with the posted comment", () => {
+  //     return request(app)
+  //       .post("/api/articles/1/comments")
+  //       .send({
+  //         username: "WhyyhW",
+  //         body: "Have not read, just thought I would post somthing.",
+  //       })
+  //       .expect(201)
+  //       .then(({ comment }) => {
+  //         expect(typeof comment.comment_id).toEqual("number");
+  //         expect(comment.body).toEqual(
+  //           "Have not read, just thought I would post somthing."
+  //         );
+  //         expect(comment.article_id).toEqual(1);
+  //         expect(comment.author).toEqual("WhyyhW");
+  //         expect(typeof comment.votes).toEqual("number");
+  //         expect(typeof comment.created_at).toEqual("string");
+  //       });
+  //   });
+  // });
 });
