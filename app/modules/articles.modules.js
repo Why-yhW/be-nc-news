@@ -1,6 +1,35 @@
 const db = require("../../db/connection");
 
-exports.fetchArticles = () => {
+exports.fetchArticles = ({ sorted_by, order }) => {
+  let sort_by = `ORDER BY created_at`;
+  let order_by = `DESC`;
+  if (sorted_by) {
+    const greenListSortBy = [
+      "article_id",
+      "author",
+      "title",
+      "topic",
+      "created_at",
+      "votes",
+      "article_img_url",
+      "comment_count",
+    ];
+    if (greenListSortBy.includes(sorted_by)) {
+      sort_by = `ORDER BY ${sorted_by}`;
+    } else {
+      return Promise.reject({ message: "Invalid query" });
+    }
+  }
+
+  if (order) {
+    const greenListOrderBy = ["DESC", "ASC"];
+    if (greenListOrderBy.includes(order.toUpperCase())) {
+      order_by = `${order.toUpperCase()}`;
+    } else {
+      return Promise.reject({ message: "Invalid query" });
+    }
+  }
+
   return db
     .query(
       `SELECT
@@ -15,7 +44,7 @@ exports.fetchArticles = () => {
       FROM articles
       LEFT JOIN comments ON comments.article_id = articles.article_id
       GROUP BY articles.article_id
-      ORDER BY articles.created_at DESC`
+      ${sort_by} ${order_by}`
     )
     .then(({ rows }) => {
       return rows;
