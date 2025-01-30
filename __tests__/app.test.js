@@ -227,6 +227,16 @@ describe("GET /api", () => {
           expect(typeof article.body).toEqual("string");
         });
     });
+    test("201: Responds with the updated article having a negative vote", () => {
+      return request(app)
+        .patch("/api/articles/1")
+        .send({ inc_votes: -110 })
+        .expect(201)
+        .then(({ body: { article } }) => {
+          expect(article.article_id).toEqual(1);
+          expect(article.votes).toEqual(-10);
+        });
+    });
     test("400: Responds with an error message when character are given istead of numbers", () => {
       return request(app)
         .patch("/api/articles/1")
