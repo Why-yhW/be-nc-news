@@ -98,4 +98,31 @@ describe("GET /api", () => {
         });
     });
   });
+  describe("GET /api/articles/:article_id/comments", () => {
+    test("200: responds with an array of comments for the given article_id", () => {
+      return request(app)
+        .get("/api/articles/1/comments")
+        .expect(200)
+        .then(({ body: { comments } }) => {
+          expect(comments.length).toEqual(11);
+          expect(comments).toBeSortedBy("created_at", { descending: true });
+          comments.forEach((comment) => {
+            expect(typeof comment.comment_id).toEqual("number");
+            expect(typeof comment.votes).toEqual("number");
+            expect(typeof comment.created_at).toEqual("string");
+            expect(typeof comment.author).toEqual("string");
+            expect(typeof comment.body).toEqual("string");
+            expect(comment.article_id).toEqual(1);
+          });
+        });
+    });
+    test("200: responds with an array of comments for the given article_id", () => {
+      return request(app)
+        .get("/api/articles/50/comments")
+        .expect(404)
+        .then(({ body }) => {
+          expect(body).toEqual({ error: "Not Found" });
+        });
+    });
+  });
 });
