@@ -327,4 +327,24 @@ describe("GET /api", () => {
         });
     });
   });
+  describe("GET /api/articles (sorting queries)", () => {
+    test("200: Responds with an array of article objects sorted by queries", () => {
+      return request(app)
+        .get("/api/articles?sorted_by=title")
+        .expect(200)
+        .then(({ body: { articles } }) => {
+          expect(articles).toBeSortedBy("title", {
+            descending: true,
+          });
+        });
+    });
+    test("400: Responds with an error if the query is using an invaled sort_by", () => {
+      return request(app)
+        .get("/api/articles?sorted_by=titlle")
+        .expect(400)
+        .then(({ body }) => {
+          expect(body).toEqual({ error: "Bad query" });
+        });
+    });
+  });
 });

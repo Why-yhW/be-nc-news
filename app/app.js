@@ -57,6 +57,14 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
+  if (err.message === "Invalid query") {
+    res.status(400).send({ error: "Bad query" });
+  } else {
+    next(err);
+  }
+});
+
+app.use((err, req, res, next) => {
   if (err.code === "22P02") {
     res.status(400).send({ error: "Bad Request" });
   } else {
