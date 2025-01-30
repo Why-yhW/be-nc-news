@@ -304,4 +304,27 @@ describe("GET /api", () => {
         });
     });
   });
+  describe("GET /api/users", () => {
+    test("200: Responds with an array of all the users objects", () => {
+      return request(app)
+        .get("/api/users")
+        .expect(200)
+        .then(({ body: { users } }) => {
+          expect(users.length).toEqual(4);
+          users.forEach((user) => {
+            expect(typeof user.username).toEqual("string");
+            expect(typeof user.name).toEqual("string");
+            expect(typeof user.avatar_url).toEqual("string");
+          });
+        });
+    });
+    test("404: responds with an error message when the url is entered wrong", () => {
+      return request(app)
+        .get("/api/user")
+        .expect(404)
+        .then(({ body }) => {
+          expect(body).toEqual({ error: "Endpoint not found!" });
+        });
+    });
+  });
 });

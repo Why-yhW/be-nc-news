@@ -11,6 +11,7 @@ const {
 const {
   deleteCommentByCommentId,
 } = require("./controllers/comments.controller");
+const { getUsers } = require("./controllers/users.controllers");
 
 const app = express();
 const port = 9090;
@@ -24,6 +25,8 @@ app.get("/api", getApi);
 app.get("/api/topics", getTopics);
 
 app.get("/api/articles", getArticles);
+
+app.get("/api/users", getUsers);
 
 app.get("/api/articles/:article_id", getArticleById);
 
