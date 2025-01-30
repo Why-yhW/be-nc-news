@@ -346,5 +346,23 @@ describe("GET /api", () => {
           expect(body).toEqual({ error: "Bad query" });
         });
     });
+    test("200: Responds with an array of article objects sorted & ordered by queries", () => {
+      return request(app)
+        .get("/api/articles?sorted_by=title&order=asc")
+        .expect(200)
+        .then(({ body: { articles } }) => {
+          expect(articles).toBeSortedBy("title", {
+            descending: false,
+          });
+        });
+    });
+    test("400: Responds with an error if the query is using an invaled order", () => {
+      return request(app)
+        .get("/api/articles?sorted_by=title&order=HightoLow")
+        .expect(400)
+        .then(({ body }) => {
+          expect(body).toEqual({ error: "Bad query" });
+        });
+    });
   });
 });
