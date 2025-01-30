@@ -6,6 +6,7 @@ const {
   getArticleById,
   getCommentsByArticleId,
   postCommentByArticleId,
+  patchArticleByArticleId,
 } = require("./controllers/articles.controllers");
 
 const app = express();
@@ -26,6 +27,8 @@ app.get("/api/articles/:article_id", getArticleById);
 app.get("/api/articles/:article_id/comments", getCommentsByArticleId);
 
 app.post("/api/articles/:article_id/comments", postCommentByArticleId);
+
+app.patch("/api/articles/:article_id", patchArticleByArticleId);
 
 //Endpoints end here
 //Error handling starts here
