@@ -141,25 +141,73 @@ describe("GET /api", () => {
         });
     });
   });
-  // describe("POST /api/articles/:article_id/comments", () => {
-  //   test("201: Responds with the posted comment", () => {
-  //     return request(app)
-  //       .post("/api/articles/1/comments")
-  //       .send({
-  //         username: "WhyyhW",
-  //         body: "Have not read, just thought I would post somthing.",
-  //       })
-  //       .expect(201)
-  //       .then(({ comment }) => {
-  //         expect(typeof comment.comment_id).toEqual("number");
-  //         expect(comment.body).toEqual(
-  //           "Have not read, just thought I would post somthing."
-  //         );
-  //         expect(comment.article_id).toEqual(1);
-  //         expect(comment.author).toEqual("WhyyhW");
-  //         expect(typeof comment.votes).toEqual("number");
-  //         expect(typeof comment.created_at).toEqual("string");
-  //       });
-  //   });
-  // });
+  describe("POST /api/articles/:article_id/comments", () => {
+    test("201: Responds with the posted comment", () => {
+      return request(app)
+        .post("/api/articles/1/comments")
+        .send({
+          username: "lurker",
+          body: "Have not read, just thought I would post somthing.",
+        })
+        .expect(201)
+        .then(({ body: { comment } }) => {
+          expect(typeof comment.comment_id).toEqual("number");
+          expect(comment.body).toEqual(
+            "Have not read, just thought I would post somthing."
+          );
+          expect(comment.article_id).toEqual(1);
+          expect(comment.author).toEqual("lurker");
+          expect(typeof comment.votes).toEqual("number");
+          expect(typeof comment.created_at).toEqual("string");
+        });
+    });
+    test("404: Responds whith error when using an unknown username", () => {
+      return request(app)
+        .post("/api/articles/1/comments")
+        .send({
+          username: "WhyyhW",
+          body: "Have not read, just thought I would post somthing.",
+        })
+        .expect(404)
+        .then(({ body }) => {
+          expect(body).toEqual({ error: "User does not exsist" });
+        });
+    });
+    test("400: Responds whith error when a key in the given body is wrong or missing", () => {
+      return request(app)
+        .post("/api/articles/1/comments")
+        .send({
+          usarname: "lurker",
+          body: "Have not read, just thought I would post somthing.",
+        })
+        .expect(400)
+        .then(({ body }) => {
+          expect(body).toEqual({ error: "Missing required key in given body" });
+        });
+    });
+    test("404: Responds with an error if the article_id does not exist", () => {
+      return request(app)
+        .post("/api/articles/400/comments")
+        .send({
+          username: "WhyyhW",
+          body: "Have not read, just thought I would post somthing.",
+        })
+        .expect(404)
+        .then(({ body }) => {
+          expect(body).toEqual({ error: "Not Found" });
+        });
+    });
+    test("400: Responds with an error if the article_id is not a number", () => {
+      return request(app)
+        .post("/api/articles/potato/comments")
+        .send({
+          usarname: "lurker",
+          body: "Have not read, just thought I would post somthing.",
+        })
+        .expect(400)
+        .then(({ body }) => {
+          expect(body).toEqual({ error: "Bad Request" });
+        });
+    });
+  });
 });
