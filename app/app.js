@@ -4,6 +4,7 @@ const {
   getTopics,
   getArticleById,
   getArticles,
+  getCommentsByArticleId,
 } = require("./controllers/get.api");
 const app = express();
 const port = 9090;
@@ -17,6 +18,8 @@ app.get("/api/topics", getTopics);
 app.get("/api/articles", getArticles);
 
 app.get("/api/articles/:article_id", getArticleById);
+
+app.get("/api/articles/:article_id/comments", getCommentsByArticleId);
 
 //Endpoints end here
 //Error handling starts here
