@@ -62,6 +62,10 @@
   "POST /api/articles/:article_id/comments": {
     "description": "adds an comment to the database",
     "queries": [],
+    "exampleRequestBody": {
+      "username": "lurker",
+      "body": "Have not read, just thought I would post somthing."
+    },
     "exampleResponse": {
       "articles": {
         "comment_id": 1,
