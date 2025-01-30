@@ -8,6 +8,9 @@ const {
   postCommentByArticleId,
   patchArticleByArticleId,
 } = require("./controllers/articles.controllers");
+const {
+  deleteCommentByCommentId,
+} = require("./controllers/comments.controller");
 
 const app = express();
 const port = 9090;
@@ -30,6 +33,8 @@ app.post("/api/articles/:article_id/comments", postCommentByArticleId);
 
 app.patch("/api/articles/:article_id", patchArticleByArticleId);
 
+app.delete("/api/comments/:comment_id", deleteCommentByCommentId);
+
 //Endpoints end here
 //Error handling starts here
 
@@ -38,7 +43,10 @@ app.all("*", (req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  if (err.message === "Article not found") {
+  if (
+    err.message === "Article not found" ||
+    err.message === "Comment not found"
+  ) {
     res.status(404).send({ error: "Not Found" });
   } else {
     next(err);

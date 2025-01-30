@@ -274,4 +274,34 @@ describe("GET /api", () => {
         });
     });
   });
+  describe("DELETE /api/comments/:comment_id", () => {
+    test("204: Responds with no content and the comment with the matching id should be deleted", () => {
+      return request(app)
+        .delete("/api/comments/1")
+        .expect(204)
+        .then(() => {
+          return request(app).delete("/api/comments/1");
+        })
+        .then((reslut) => {
+          expect(reslut.status).toEqual(404);
+          expect(reslut.body).toEqual({ error: "Not Found" });
+        });
+    });
+    test("404: Responds with an error if the comment_id does not exist", () => {
+      return request(app)
+        .delete("/api/comments/1000")
+        .expect(404)
+        .then(({ body }) => {
+          expect(body).toEqual({ error: "Not Found" });
+        });
+    });
+    test("400: Responds with an error if the comment_id is not a number", () => {
+      return request(app)
+        .delete("/api/comments/tomato")
+        .expect(400)
+        .then(({ body }) => {
+          expect(body).toEqual({ error: "Bad Request" });
+        });
+    });
+  });
 });
