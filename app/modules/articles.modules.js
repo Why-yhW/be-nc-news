@@ -6,7 +6,14 @@ exports.fetchArticles = ({ sorted_by, order, topic }) => {
   let topicFilter = ``;
 
   if (topic) {
-    const greenlistTopics = ["mitch", "cats", "paper"];
+    const greenlistTopics = [
+      "mitch",
+      "cats",
+      "paper",
+      "coding",
+      "football",
+      "cooking",
+    ];
     if (greenlistTopics.includes(topic)) {
       topicFilter = `WHERE topic = '${topic}'`;
     } else {
