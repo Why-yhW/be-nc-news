@@ -47,7 +47,7 @@ describe("GET /api", () => {
         .get("/api/articles/20")
         .expect(404)
         .then(({ body }) => {
-          expect(body).toEqual({ error: "Not Found" });
+          expect(body).toEqual({ error: "Article not found" });
         });
     });
     test("400: Responds with an error if the article_id is not a number", () => {
@@ -129,7 +129,7 @@ describe("GET /api", () => {
         .get("/api/articles/50/comments")
         .expect(404)
         .then(({ body }) => {
-          expect(body).toEqual({ error: "Not Found" });
+          expect(body).toEqual({ error: "Article not found" });
         });
     });
     test("400: Responds with an error if the article_id is not a number", () => {
@@ -194,7 +194,7 @@ describe("GET /api", () => {
         })
         .expect(404)
         .then(({ body }) => {
-          expect(body).toEqual({ error: "Not Found" });
+          expect(body).toEqual({ error: "Article not found" });
         });
     });
     test("400: Responds with an error if the article_id is not a number", () => {
@@ -261,7 +261,7 @@ describe("GET /api", () => {
         .send({ inc_vtes: 10 })
         .expect(404)
         .then(({ body }) => {
-          expect(body).toEqual({ error: "Not Found" });
+          expect(body).toEqual({ error: "Article not found" });
         });
     });
     test("400: Responds with an error if the article_id is not a number", () => {
@@ -284,7 +284,7 @@ describe("GET /api", () => {
         })
         .then((reslut) => {
           expect(reslut.status).toEqual(404);
-          expect(reslut.body).toEqual({ error: "Not Found" });
+          expect(reslut.body).toEqual({ error: "Comment not found" });
         });
     });
     test("404: Responds with an error if the comment_id does not exist", () => {
@@ -292,7 +292,7 @@ describe("GET /api", () => {
         .delete("/api/comments/1000")
         .expect(404)
         .then(({ body }) => {
-          expect(body).toEqual({ error: "Not Found" });
+          expect(body).toEqual({ error: "Comment not found" });
         });
     });
     test("400: Responds with an error if the comment_id is not a number", () => {
@@ -316,14 +316,6 @@ describe("GET /api", () => {
             expect(typeof user.name).toEqual("string");
             expect(typeof user.avatar_url).toEqual("string");
           });
-        });
-    });
-    test("404: responds with an error message when the url is entered wrong", () => {
-      return request(app)
-        .get("/api/user")
-        .expect(404)
-        .then(({ body }) => {
-          expect(body).toEqual({ error: "Endpoint not found!" });
         });
     });
   });

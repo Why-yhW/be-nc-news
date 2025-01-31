@@ -50,7 +50,7 @@ app.use((err, req, res, next) => {
     err.message === "Article not found" ||
     err.message === "Comment not found"
   ) {
-    res.status(404).send({ error: "Not Found" });
+    res.status(err.status).send({ error: err.message });
   } else {
     next(err);
   }

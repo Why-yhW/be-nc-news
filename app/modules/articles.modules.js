@@ -87,7 +87,7 @@ exports.fetchArticleById = (article_id) => {
     .then(({ rows }) => {
       console.log(rows);
       if (rows.length === 0) {
-        return Promise.reject({ message: "Article not found" });
+        return Promise.reject({ status: 404, message: "Article not found" });
       } else {
         return rows[0];
       }
