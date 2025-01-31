@@ -109,5 +109,8 @@
   },
   "DELETE /api/comments/:comment_id": {
     "description": "Removes a comment from the database where the IDs are the same"
+  },
+  "GitHub link": {
+    "link": "https://github.com/Why-yhW/be-nc-news"
   }
 }
