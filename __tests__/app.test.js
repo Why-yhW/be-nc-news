@@ -404,4 +404,14 @@ describe("GET /api", () => {
         });
     });
   });
+  describe("GET /api/articles/:article_id (comment_count)", () => {
+    test("200: Responds with the appropriate article object", () => {
+      return request(app)
+        .get("/api/articles/1")
+        .expect(200)
+        .then(({ body: { article } }) => {
+          expect(typeof article.comment_count).toEqual("number");
+        });
+    });
+  });
 });
