@@ -4,12 +4,12 @@ const { getTopics } = require("./controllers/topics.controllers");
 const {
   getArticles,
   getArticleById,
-  getCommentsByArticleId,
-  postCommentByArticleId,
   patchArticleByArticleId,
 } = require("./controllers/articles.controllers");
 const {
   deleteCommentByCommentId,
+  getCommentsByArticleId,
+  postCommentByArticleId,
 } = require("./controllers/comments.controller");
 const { getUsers } = require("./controllers/users.controllers");
 
