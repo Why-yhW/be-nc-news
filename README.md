@@ -5,11 +5,36 @@ Add PGDATABASE=nc_news_test; to test and PGDATABASE=nc_news; to development.
 
 Link to live version: [Here](https://first-project-my3j.onrender.com) (please note that there can be a bit of a delay when loading - This is caused by the free hosting service after a period of inactivity)
 
-[summary goes here]
+## Project Description
+The `be-nc-news` repository is a **Northcoders News API** that mimics the functionality of a social news feed. It allows users to access and manipulate articles, comments, topics, and users. The API is built using **Node.js** and **Express**, with data stored in **PostgreSQL**.
 
-[Clear instructions of how to clone, install dependencies, seed local database, and run tests go here.]
+## Key Features
+- **Topics**: Users can view topics.
+- **Articles**: Users can veiw and update articles.
+- **Comments**: Users can veiw, add and delete comments on articles.
+- **Users**: Users can view the different users.
 
-[The minimum versions of Node.js, and Postgres needed to run the project goes here.]
+## Installation Requirements
+- **Node.js**: Version 17 or above.
+- **PostgreSQL**: Version 13.6 or above.
+
+## Setup Instructions
+1. Clone the repository and navigate to the project directory.
+2. Run `npm install --production=false` to install project and developer dependencies.
+3. Set up environment variables by creating `.env.test` and `.env.development` files.
+4. Start the app using `npm start`.
+5. Test the app using `npm test`.
+
+## Endpoints
+- **GET /api/topics**: Retrieves an array of topic objects.
+- **GET /api/articles**: Retrieves an array of article objects.
+- **GET /api/articles/:article_id**: Retrieves a specific article by ID.
+- **GET /api/articles/:article_id/comments**: Retrieves comments for a specific article.
+- **PATCH /api/articles/:article_id**: Updates a specific article.
+- **POST /api/articles/:article_id/comments**: Adds a comment to a specific article.
+- **GET /api/users**: Retrieves user information.
+- **DELETE /api/comments/:comment_id**: Deletes a specific comment.
+
 
 ---
 
