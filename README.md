@@ -20,9 +20,9 @@ The `be-nc-news` repository is a **Northcoders News API** that mimics the functi
 
 ## Setup Instructions
 1. Create a local clone of the repository, then in the ternimal use the following:
-`git remote set-url origin [YOUR_NEW_REPO_URL_HERE]
-git branch -M main
-git push -u origin main`
+-`git remote set-url origin [YOUR_NEW_REPO_URL_HERE]`
+-`git branch -M main`
+-`git push -u origin main`
 3. 
 4. Run `npm install --production=false` to install project and developer dependencies.
 5. Set up environment variables by creating `.env.test` and `.env.development` files.
