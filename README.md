@@ -1,8 +1,5 @@
 # Northcoders News API
 
-Link to live version: [Here](https://first-project-my3j.onrender.com) (please note that there can be a bit of a delay when loading - This is caused by the free hosting service after a period of inactivity)
-
-## Project Description
 [summary]
 
 ## Key Features
@@ -37,7 +34,8 @@ Link to live version: [Here](https://first-project-my3j.onrender.com) (please no
 - **GET /api/users**: Retrieves user information.
 - **DELETE /api/comments/:comment_id**: Deletes a specific comment.
 
+## Links
+Link to live version: [Here](https://first-project-my3j.onrender.com) (please note that there can be a bit of a delay when loading - This is caused by the free hosting service after a period of inactivity)
 
 ---
-
 This portfolio project was created as part of a Digital Skills Bootcamp in Software Engineering provided by [Northcoders](https://northcoders.com/)
