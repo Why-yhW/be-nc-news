@@ -1,12 +1,9 @@
 # Northcoders News API
 
-To connect to the two databases locally you need two .env files named .env.test and .env.development.
-Add PGDATABASE=nc_news_test; to test and PGDATABASE=nc_news; to development.
-
 Link to live version: [Here](https://first-project-my3j.onrender.com) (please note that there can be a bit of a delay when loading - This is caused by the free hosting service after a period of inactivity)
 
 ## Project Description
-The `be-nc-news` repository is a **Northcoders News API** that mimics the functionality of a social news feed. It allows users to access and manipulate articles, comments, topics, and users. The API is built using **Node.js** and **Express**, with data stored in **PostgreSQL**.
+[summary]
 
 ## Key Features
 - **Topics**: Users can view topics.
@@ -20,15 +17,15 @@ The `be-nc-news` repository is a **Northcoders News API** that mimics the functi
 
 ## Setup Instructions
 1. Create a local clone of the repository, then in the ternimal use the following:
--`git remote set-url origin [YOUR_NEW_REPO_URL_HERE]`
--`git branch -M main`
--`git push -u origin main`
-3. 
-4. Run `npm install --production=false` to install project and developer dependencies.
-5. Set up environment variables by creating `.env.test` and `.env.development` files.
-6. Add `PGDATABASE=nc_news_test` to test and `PGDATABASE=nc_news` to development.
-7. Start the app using `npm start`.
-8. Test the app using `npm test`.
+- `git remote set-url origin [YOUR_NEW_REPO_URL_HERE]`
+- `git branch -M main`
+- `git push -u origin main`
+2. To connect to the two databases locally you need to create two `.env` files named `.env.test` and `.env.development`.
+3. In `.env.test` add `PGDATABASE=nc_news_test` and in `.env.development` add `PGDATABASE=nc_news`.
+4. Run `npm install` to install the required dependencies.
+5. You will then want to run `npm run prepare` to setup husky.
+6. Then you will want to set the database up using `npm run setup-dbs`.
+7. You can then run the tests using `npm test`.
 
 ## Endpoints
 - **GET /api/topics**: Retrieves an array of topic objects.
