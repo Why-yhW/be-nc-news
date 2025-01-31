@@ -19,11 +19,16 @@ The `be-nc-news` repository is a **Northcoders News API** that mimics the functi
 - **PostgreSQL**: Version 13.6 or above.
 
 ## Setup Instructions
-1. Clone the repository and navigate to the project directory.
-2. Run `npm install --production=false` to install project and developer dependencies.
-3. Set up environment variables by creating `.env.test` and `.env.development` files.
-4. Start the app using `npm start`.
-5. Test the app using `npm test`.
+1. Create a local clone of the repository, then in the ternimal use the following:
+`git remote set-url origin [YOUR_NEW_REPO_URL_HERE]
+git branch -M main
+git push -u origin main`
+3. 
+4. Run `npm install --production=false` to install project and developer dependencies.
+5. Set up environment variables by creating `.env.test` and `.env.development` files.
+6. Add `PGDATABASE=nc_news_test` to test and `PGDATABASE=nc_news` to development.
+7. Start the app using `npm start`.
+8. Test the app using `npm test`.
 
 ## Endpoints
 - **GET /api/topics**: Retrieves an array of topic objects.
