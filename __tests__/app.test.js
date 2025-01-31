@@ -365,4 +365,43 @@ describe("GET /api", () => {
         });
     });
   });
+  describe("GET /api/articles (topic query)", () => {
+    test("200: Responds with an array of article objects filtered by the topic query", () => {
+      return request(app)
+        .get("/api/articles?topic=cats")
+        .expect(200)
+        .then(({ body: { articles } }) => {
+          expect(articles.length).toEqual(1);
+          articles.forEach((article) => {
+            expect(typeof article.author).toEqual("string");
+            expect(typeof article.title).toEqual("string");
+            expect(typeof article.article_id).toEqual("number");
+            expect(article.topic).toEqual("cats");
+            expect(typeof article.created_at).toEqual("string");
+            expect(typeof article.votes).toEqual("number");
+            expect(typeof article.article_img_url).toEqual("string");
+            expect(typeof article.comment_count).toEqual("number");
+          });
+        });
+    });
+    test("200: Responds with an array of article objects filtered by the topic query", () => {
+      return request(app)
+        .get("/api/articles?topic=mitch")
+        .expect(200)
+        .then(({ body: { articles } }) => {
+          expect(articles.length).toEqual(12);
+          articles.forEach((article) => {
+            expect(article.topic).toEqual("mitch");
+          });
+        });
+    });
+    test("400: Responds with an error if the query is using an invaled sort_by", () => {
+      return request(app)
+        .get("/api/articles?topic=cat")
+        .expect(400)
+        .then(({ body }) => {
+          expect(body).toEqual({ error: "Bad query" });
+        });
+    });
+  });
 });
