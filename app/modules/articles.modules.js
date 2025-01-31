@@ -1,8 +1,19 @@
 const db = require("../../db/connection");
 
-exports.fetchArticles = ({ sorted_by, order }) => {
+exports.fetchArticles = ({ sorted_by, order, topic }) => {
   let sort_by = `ORDER BY created_at`;
   let order_by = `DESC`;
+  let topicFilter = ``;
+
+  if (topic) {
+    const greenlistTopics = ["mitch", "cats", "paper"];
+    if (greenlistTopics.includes(topic)) {
+      topicFilter = `WHERE topic = '${topic}'`;
+    } else {
+      return Promise.reject({ message: "Invalid query" });
+    }
+  }
+
   if (sorted_by) {
     const greenListSortBy = [
       "article_id",
@@ -42,7 +53,9 @@ exports.fetchArticles = ({ sorted_by, order }) => {
         articles.article_img_url,
         COUNT(comments.article_id) ::INT AS comment_count
       FROM articles
-      LEFT JOIN comments ON comments.article_id = articles.article_id
+      LEFT JOIN comments 
+      ON comments.article_id = articles.article_id
+      ${topicFilter}
       GROUP BY articles.article_id
       ${sort_by} ${order_by}`
     )
