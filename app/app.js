@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const { getApi } = require("./controllers/get.api");
 const { getTopics } = require("./controllers/topics.controllers");
 const {
@@ -16,6 +17,7 @@ const { getUsers } = require("./controllers/users.controllers");
 const app = express();
 const port = 9090;
 
+app.use(cors());
 app.use(express.json());
 
 //Endpoints start here
