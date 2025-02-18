@@ -94,6 +94,9 @@
   "PATCH /api/articles/:article_id": {
     "description": "serves a single article with matching id",
     "queries": [],
+    "exampleBodyRequest": {
+      "inc_votes": "newVote(newVote will indicate how much the votes property in the database should be updated e.g. 1 would increase it by 1, and -100 would decrease it be 100)"
+    },
     "exampleResponse": {
       "articles": {
         "author": "icellusedkars",
