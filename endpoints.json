@@ -44,7 +44,7 @@
     "description": "serves a single article with matching id",
     "queries": [],
     "exampleResponse": {
-      "articles": {
+      "article": {
         "author": "icellusedkars",
         "title": "Am I a cat?",
         "article_id": 11,
@@ -61,7 +61,7 @@
     "description": "serves an array of comments for the given article_id",
     "queries": [],
     "exampleResponse": {
-      "articles": [
+      "comments": [
         {
           "comment_id": 1,
           "votes": 16,
