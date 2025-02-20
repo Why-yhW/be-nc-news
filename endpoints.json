@@ -92,21 +92,23 @@
     }
   },
   "PATCH /api/articles/:article_id": {
-    "description": "serves a single article with matching id",
+    "description": "Updates the vote of the chosen article",
     "queries": [],
     "exampleBodyRequest": {
       "inc_votes": "newVote(newVote will indicate how much the votes property in the database should be updated e.g. 1 would increase it by 1, and -100 would decrease it be 100)"
     },
     "exampleResponse": {
-      "articles": {
-        "author": "icellusedkars",
-        "title": "Am I a cat?",
-        "article_id": 11,
-        "body": "Having run out of ideas for articles, I am staring at the wall blankly, like a cat. Does this make me a cat?",
-        "topic": "mitch",
-        "created_at": 1579126860000,
-        "votes": 0,
-        "article_img_url": "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700"
+      "data": {
+        "article": {
+          "author": "icellusedkars",
+          "title": "Am I a cat?",
+          "article_id": 11,
+          "body": "Having run out of ideas for articles, I am staring at the wall blankly, like a cat. Does this make me a cat?",
+          "topic": "mitch",
+          "created_at": 1579126860000,
+          "votes": 0,
+          "article_img_url": "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700"
+        }
       }
     }
   },
