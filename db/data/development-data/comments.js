@@ -378,6 +378,13 @@ module.exports = [
     created_at: 1600297920000,
   },
   {
+    body: "TEST.",
+    votes: 8,
+    author: "grumpy19",
+    article_id: 34,
+    created_at: 1600297920000,
+  },
+  {
     body: "Ut et libero reiciendis. Tenetur quibusdam veniam in atque corrupti excepturi tenetur qui et. Qui ut autem minus aut explicabo in cumque dolorum. Voluptatem est perferendis velit. Eaque doloremque asperiores error.",
     votes: -3,
     author: "jessjelly",
