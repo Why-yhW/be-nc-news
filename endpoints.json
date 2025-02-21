@@ -77,8 +77,10 @@
     "description": "adds an comment to the database",
     "queries": [],
     "exampleRequestBody": {
-      "username": "lurker",
-      "body": "Have not read, just thought I would post somthing."
+      "body": {
+        "username": "lurker",
+        "body": "Have not read, just thought I would post somthing."
+      }
     },
     "exampleResponse": {
       "articles": {
