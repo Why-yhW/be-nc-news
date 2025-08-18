@@ -35,7 +35,7 @@
 - **DELETE /api/comments/:comment_id**: Deletes a specific comment.
 
 ## Links
-Link to live version: [Here](https://first-project-my3j.onrender.com) (please note that there can be a bit of a delay when loading - This is caused by the free hosting service after a period of inactivity)
+Link to live version: [Here](https://first-project-my3j.onrender.com) (Link doesn't work for now)
 
 ---
 This portfolio project was created as part of a Digital Skills Bootcamp in Software Engineering provided by [Northcoders](https://northcoders.com/)
